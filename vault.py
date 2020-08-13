@@ -62,7 +62,8 @@ def prompt_add_password():
 
 def handle_add_password(password_list, master_password):
     password_object = prompt_add_password()
-    new_password_list = add_password(password_object, password_list, master_password,)
+    new_password_list = add_password(
+        password_object, password_list, master_password)
     save_password_list(new_password_list, master_password)
     print("Your new password has been saved \n")
     print("Returning...")
@@ -131,7 +132,8 @@ def main():
         elif option == "2":
             handle_find_password(password_list)
         elif option == "3":
-            password_list = handle_delete_password(password_list, master_password)
+            password_list = handle_delete_password(
+                password_list, master_password)
         elif option == "4":
             print("Quitting...")
             quit()

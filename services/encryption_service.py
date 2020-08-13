@@ -7,6 +7,7 @@ from Cryptodome.Cipher import AES
 import os
 from Cryptodome.Random import get_random_bytes
 
+
 def encrypt(plain_text, password):
     # use the SHA256 algorithm to get a private key from the password
     private_key = hashlib.sha256(password.encode()).digest()
@@ -18,6 +19,7 @@ def encrypt(plain_text, password):
 
     return b64encode(encoded_data).decode('utf-8')
 
+
 def decrypt(encoded_cipher, password):
     # use the SHA256 algorithm to get a private key from the password
     private_key = hashlib.sha256(password.encode()).digest()
@@ -28,7 +30,6 @@ def decrypt(encoded_cipher, password):
 
     cipher_config = AES.new(private_key, AES.MODE_CFB, iv=iv)
     return bytes.decode(cipher_config.decrypt(cipher))
-
 
 
 if __name__ == "__main__":
