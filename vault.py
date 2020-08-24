@@ -44,7 +44,7 @@ def handle_delete_password(password_list, master_password):
     return new_password_list
 
 
-def add_password(password_object, password_list, master_password):
+def add_password(password_object, password_list):
     new_list = password_list.copy()
     new_list.append(password_object)
     return new_list
@@ -63,7 +63,7 @@ def prompt_add_password():
 def handle_add_password(password_list, master_password):
     password_object = prompt_add_password()
     new_password_list = add_password(
-        password_object, password_list, master_password)
+        password_object, password_list)
     save_password_list(new_password_list, master_password)
     print("Your new password has been saved \n")
     print("Returning...")
