@@ -1,5 +1,4 @@
 import os
-import json
 from time import sleep
 
 from services.file_service import save_data_to_file, load_data_from_file
@@ -73,14 +72,12 @@ def handle_add_password(password_list, master_password):
 def load_password_list(password):
     """Load the password list from the encrypted vault"""
     ciphered_data = load_data_from_file("./ciphered_vault")
-    print(ciphered_data)
-    string_data = decrypt(ciphered_data, password)
-    return json.loads(string_data)
+    return decrypt(ciphered_data, password)
 
 
 def save_password_list(password_list, password):
     """Save the password list in the encrypted vault"""
-    ciphered_list = encrypt(json.dumps(password_list), password)
+    ciphered_list = encrypt(password_list, password)
     save_data_to_file("./ciphered_vault", ciphered_list)
 
 

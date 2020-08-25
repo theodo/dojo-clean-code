@@ -6,7 +6,9 @@ import hashlib
 from Cryptodome.Cipher import AES
 
 
-def encrypt(plain_text, password):
+def encrypt(data, password):
+    plain_text = json.dumps(data)
+
     # use the SHA256 algorithm to get a private key from the password
     private_key = hashlib.sha256(password.encode()).digest()
 
@@ -27,14 +29,15 @@ def decrypt(encoded_cipher, password):
     cipher = decoded_cipher[16:]
 
     cipher_config = AES.new(private_key, AES.MODE_CFB, iv=iv)
-    return bytes.decode(cipher_config.decrypt(cipher))
+    plain_text = bytes.decode(cipher_config.decrypt(cipher))
+    return json.loads(plain_text)
 
 
 if __name__ == "__main__":
     password = input("Password: ")
 
     # First let us encrypt secret message
-    encrypted = encrypt(json.dumps([]), password)
+    encrypted = encrypt([], password)
     print(encrypted)
 
     # Let us decrypt using our original password
