@@ -93,7 +93,7 @@ def main():
             print("\n")
 
             temp = 0
-            for i in range(len(pList)):
+            for i in range(len(pList) + 1):
                 if pList[i]['account'] == a:
                     print(pList[i])
 
@@ -103,7 +103,7 @@ def main():
             print("\n")
 
             temp1 = 0
-            for i in range(0, len(pList)):
+            for i in range(0, len(pList) + 1):
                 if pList[i]['account'] == a:
                     del pList[i]
                     break
