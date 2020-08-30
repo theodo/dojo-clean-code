@@ -31,32 +31,32 @@ def handle_add_password(password_list, master_password):
     return new_password_list
 
 
-def load_password_list(password):
-    """Load the password list from the encrypted vault"""
+def load_account_list(password):
+    """Load the account list from the encrypted vault"""
     ciphered_data = load_data_from_file("./ciphered_vault")
     return decrypt(ciphered_data, password)
 
 
 def write(password_list, password):
-    """Save the password list in the encrypted vault"""
+    """Save the account list in the encrypted vault"""
     ciphered_list = encrypt(password_list, password)
     save_data_to_file("./ciphered_vault", ciphered_list)
 
 
-def prompt_login_existing_account():
+def handle_login_existing_account():
     password = input("Enter your master password: ")
     print("")
 
     # Try and decipher the vault to check master password
     try:
-        password_list = load_password_list(password)
+        password_list = load_account_list(password)
         return password_list, password
     except Exception:
         print("WRONG PASSWORD !\n")
         exit(1)
 
 
-def prompt_register_new_account():
+def handle_register_new_account():
     print("This is a new account !\n")
     password = input("Please enter a master password:\n")
     print("")
@@ -70,11 +70,11 @@ def main():
 
     # Account already exists
     if "ciphered_vault" in files:
-        pList, master_password = prompt_login_existing_account()
+        pList, master_password = handle_login_existing_account()
 
     # Account creation phase
     else:
-        pList, master_password = prompt_register_new_account()
+        pList, master_password = handle_register_new_account()
 
     while True:
         print("")
