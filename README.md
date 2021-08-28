@@ -5,7 +5,13 @@ Dojo Clean Code
 
 This application requires python3 in order to work.
 
-Install dependencies:
+Install dependencies, through `conda`:
+
+```bash
+conda install --file requirements.txt
+```
+
+or through `pip3`
 
 ```bash
 pip3 install -r requirements.txt
