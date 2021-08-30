@@ -99,7 +99,7 @@ def main():
 
         elif option == "3":
             l = len(pList)
-            a = input("Enter password account:\n").lower()
+            a = input("Enter account name:\n").lower()
             print("\n")
 
             temp1 = 0
@@ -109,9 +109,9 @@ def main():
                     break
 
             if len(pList) == l:
-                print("No password was found matching this account in the vault!")
+                print("No accounts were found matching this account name!")
             else:
-                print("Password {} successfully deleted from vault".format(a))
+                print("Account {} successfully deleted from vault".format(a))
 
         elif option == "4":
             print("Quitting...")
