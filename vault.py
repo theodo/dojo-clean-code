@@ -21,7 +21,7 @@ def prompt_add_password():
     return {"account": account, "username": username, "password": password}
 
 
-def handle_add_password(password_list, master_password):
+def handle_add_account(password_list, master_password):
     password_object = prompt_add_password()
     new_password_list = add_password(
         password_object, password_list)
@@ -87,7 +87,7 @@ def main():
 
         option = input()
         if option == "1":
-            pList = handle_add_password(pList, master_password)
+            pList = handle_add_account(pList, master_password)
         elif option == "2":
             a = input("Enter password account:\n").lower()
             print("\n")
