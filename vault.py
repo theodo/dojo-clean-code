@@ -12,21 +12,25 @@ def add_password(password_object, password_list):
 
 
 def prompt_add_password():
-    account = input("Enter password account:\n").lower()
+    website_name = input("Enter website name:\n").lower()
     print("\n")
-    username = input("Enter username for {}: \n".format(account))
+    username = input("Enter username for {}: \n".format(website_name))
     print("\n")
     password = input("Enter password: \n")
     print("\n")
-    return {"account": account, "username": username, "password": password}
+    return {
+        "website_name": website_name,
+        "username": username,
+        "password": password
+    }
 
 
 def handle_add_account(password_list, master_password):
-    password_object = prompt_add_password()
+    account_object = prompt_add_password()
     new_password_list = add_password(
-        password_object, password_list)
+        account_object, password_list)
     write(new_password_list, master_password)
-    print("Your new password has been saved \n")
+    print("Your new account and password have been saved \n")
     print("Returning...")
     return new_password_list
 
@@ -78,8 +82,8 @@ def main():
 
     while True:
         print("")
-        print("Type in 1 to store a new password! \n")
-        print("Type in 2 to retrieve one of your passwords \n")
+        print("Type in 1 to store a new website account! \n")
+        print("Type in 2 to retrieve one of your website accounts \n")
         print("Type in 3 to delete one of your saved accounts \n")
         print("Type in 4 to quit the program \n")
         print("Type in 5 to see all saved accounts \n")
@@ -99,7 +103,7 @@ def main():
 
         elif option == "3":
             l = len(pList)
-            a = input("Enter account name:\n").lower()
+            a = input("Enter website name:\n").lower()
             print("\n")
 
             temp1 = 0
@@ -109,7 +113,7 @@ def main():
                     break
 
             if len(pList) == l:
-                print("No accounts were found matching this account name!")
+                print("No accounts were found matching this website name!")
             else:
                 print("Account {} successfully deleted from vault".format(a))
 
