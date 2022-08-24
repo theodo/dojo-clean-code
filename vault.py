@@ -9,6 +9,7 @@ from services.encryption_service import encrypt, decrypt
 
 console = Console()
 
+
 def add_password(password_object, password_list):
     new_list = password_list.copy()
     new_list.append(password_object)
@@ -68,6 +69,7 @@ def handle_register_new_account():
     write([], password)
     return [], password
 
+
 def show_options():
     table = Table(title="Options")
 
@@ -83,6 +85,7 @@ def show_options():
     table.add_row("6", "Delete everything")
 
     console.print(table, justify="center")
+
 
 def main():
     files = os.listdir()
@@ -127,9 +130,13 @@ def main():
                     break
 
             if len(pList) == l:
-                console.print("No accounts were found matching this website name!")
+                console.print(
+                    "No accounts were found matching this website name!"
+                )
             else:
-                console.print("Account {} successfully deleted from vault".format(a))
+                console.print(
+                    "Account {} successfully deleted from vault".format(a)
+                )
 
         elif option == "4":
             console.print("Quitting...")
