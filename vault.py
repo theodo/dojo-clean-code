@@ -63,7 +63,7 @@ def handle_login_existing_account():
 
 def handle_register_new_account():
     console.print("This is a new account !\n")
-    password = Prompt.ask("Please enter a master password", password=True)
+    password = Prompt.ask("Please enter a master password")
     console.print("")
     write([], password)
     return [], password
