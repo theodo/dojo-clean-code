@@ -1,9 +1,13 @@
 import os
 from time import sleep
+from rich.console import Console
+from rich.prompt import Prompt
+from rich.table import Table
 
 from services.file_service import save_data_to_file, load_data_from_file
 from services.encryption_service import encrypt, decrypt
 
+console = Console()
 
 def add_password(password_object, password_list):
     new_list = password_list.copy()
@@ -12,12 +16,9 @@ def add_password(password_object, password_list):
 
 
 def prompt_add_password():
-    website_name = input("Enter website name:\n").lower()
-    print("\n")
-    username = input("Enter username for {}: \n".format(website_name))
-    print("\n")
-    password = input("Enter password: \n")
-    print("\n")
+    website_name = Prompt.ask("Enter website name").lower()
+    username = Prompt.ask("Enter username for {}".format(website_name))
+    password = Prompt.ask("Enter password")
     return {
         "website_name": website_name,
         "username": username,
@@ -30,8 +31,8 @@ def handle_add_account(password_list, master_password):
     new_password_list = add_password(
         account_object, password_list)
     write(new_password_list, master_password)
-    print("Your new account and password have been saved \n")
-    print("Returning...")
+    console.print("Your new account and password have been saved \n")
+    console.print("Returning...")
     return new_password_list
 
 
@@ -49,28 +50,44 @@ def write(password_list, password):
 
 def handle_login_existing_account():
     password = input("Enter your master password: ")
-    print("")
+    console.print("")
 
     # Try and decipher the vault to check master password
     try:
         password_list = load_account_list(password)
         return password_list, password
     except Exception:
-        print("WRONG PASSWORD !\n")
+        console.print("WRONG PASSWORD !\n")
         exit(1)
 
 
 def handle_register_new_account():
-    print("This is a new account !\n")
-    password = input("Please enter a master password:\n")
-    print("")
+    console.print("This is a new account !\n")
+    password = Prompt.ask("Please enter a master password", password=True)
+    console.print("")
     write([], password)
     return [], password
 
+def show_options():
+    table = Table(title="Options")
+
+    table.add_column("Option", style="cyan")
+    table.add_column("Name", style="magenta")
+
+    # adding the rows
+    table.add_row("1", "Store new website account")
+    table.add_row("2", "Retrieve website account")
+    table.add_row("3", "Delete website account")
+    table.add_row("4", "Quit the program")
+    table.add_row("5", "Show all saved accounts")
+    table.add_row("6", "Delete everything")
+
+    console.print(table, justify="center")
 
 def main():
     files = os.listdir()
-    print("Welcome to PassKeep\n")
+    console.clear()
+    console.print("[blue underline]WELCOME TO PASSKEEP", justify="center")
 
     # Account already exists
     if "ciphered_vault" in files:
@@ -81,30 +98,27 @@ def main():
         pList, master_password = handle_register_new_account()
 
     while True:
-        print("")
-        print("Type in 1 to store a new website account! \n")
-        print("Type in 2 to retrieve one of your website accounts \n")
-        print("Type in 3 to delete one of your saved accounts \n")
-        print("Type in 4 to quit the program \n")
-        print("Type in 5 to see all saved accounts \n")
-        print("Type in 6 to delete everything \n")
+        console.rule()
 
-        option = input()
+        show_options()
+
+        option = Prompt.ask("What do you want to do ? ")
+
         if option == "1":
             pList = handle_add_account(pList, master_password)
         elif option == "2":
-            a = input("Enter password account:\n").lower()
-            print("\n")
+            a = Prompt.ask("Enter account website name").lower()
+            console.print("\n")
 
             temp = 0
             for i in range(len(pList)):
                 if pList[i]['account'] == a:
-                    print(pList[i])
+                    console.print(pList[i])
 
         elif option == "3":
             l = len(pList)
-            a = input("Enter website name:\n").lower()
-            print("\n")
+            a = Prompt.ask("Enter website name").lower()
+            console.print("\n")
 
             temp1 = 0
             for i in range(0, len(pList)):
@@ -113,15 +127,15 @@ def main():
                     break
 
             if len(pList) == l:
-                print("No accounts were found matching this website name!")
+                console.print("No accounts were found matching this website name!")
             else:
-                print("Account {} successfully deleted from vault".format(a))
+                console.print("Account {} successfully deleted from vault".format(a))
 
         elif option == "4":
-            print("Quitting...")
+            console.print("Quitting...")
             quit()
         elif option == "5":
-            print(pList)
+            console.print(pList)
         elif option == "6":
             pass
         else:
