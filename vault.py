@@ -115,7 +115,7 @@ def main():
 
             temp = 0
             for i in range(len(pList)):
-                if pList[i]['account'] == a:
+                if pList[i]['website_name'] == a:
                     console.print(pList[i])
 
         elif option == "3":
@@ -125,7 +125,7 @@ def main():
 
             temp1 = 0
             for i in range(0, len(pList)):
-                if pList[i]['account'] == a:
+                if pList[i]['website_name'] == a:
                     del pList[i]
                     break
 
