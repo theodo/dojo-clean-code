@@ -20,17 +20,12 @@ def prompt_add_password():
     website_name = Prompt.ask("Enter website name").lower()
     username = Prompt.ask("Enter username for {}".format(website_name))
     password = Prompt.ask("Enter password")
-    return {
-        "website_name": website_name,
-        "username": username,
-        "password": password
-    }
+    return {"website_name": website_name, "username": username, "password": password}
 
 
 def handle_add_account(password_list, master_password):
     account_object = prompt_add_password()
-    new_password_list = add_password(
-        account_object, password_list)
+    new_password_list = add_password(account_object, password_list)
     write(new_password_list, master_password)
     console.print("Your new account and password have been saved \n")
     console.print("Returning...")
@@ -114,9 +109,12 @@ def main():
             console.print("\n")
 
             temp = 0
+            b = None
             for i in range(len(pList)):
-                if pList[i]['website_name'] == a:
-                    console.print(pList[i])
+                if pList[i]["website_name"] == a:
+                    b = pList[i]
+
+            console.print(b)
 
         elif option == "3":
             l = len(pList)
@@ -125,18 +123,14 @@ def main():
 
             temp1 = 0
             for i in range(0, len(pList)):
-                if pList[i]['website_name'] == a:
+                if pList[i]["website_name"] == a:
                     del pList[i]
                     break
 
             if len(pList) == l:
-                console.print(
-                    "No accounts were found matching this website name!"
-                )
+                console.print("No accounts were found matching this website name!")
             else:
-                console.print(
-                    "Account {} successfully deleted from vault".format(a)
-                )
+                console.print("Account {} successfully deleted from vault".format(a))
 
         elif option == "4":
             console.print("Quitting...")
