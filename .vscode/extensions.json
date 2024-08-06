@@ -1,7 +1,8 @@
 {
-    "recommendations": [
-        "ms-python.flake8",
-        "ms-python.python",
-        "donjayamanne.python-environment-manager"
-    ]
+  "recommendations": ["ms-python.flake8", "ms-python.python"],
+  "github.codespaces.defaultExtensions": [
+    "ms-python.flake8",
+    "ms-python.python"
+  ]
 }
+
